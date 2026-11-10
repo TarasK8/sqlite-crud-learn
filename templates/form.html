@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ heading }}</h2>
+<form method="post" action="{{ action }}">
+  <label for="title">Назва</label>
+  <input type="text" id="title" name="title" required value="{{ book.title if book else '' }}">
+
+  <label for="author">Автор</label>
+  <input type="text" id="author" name="author" required value="{{ book.author if book else '' }}">
+
+  <label for="year">Рік видання</label>
+  <input type="number" id="year" name="year" required min="0" max="2100" value="{{ book.year if book else '' }}">
+
+  <label for="genre">Жанр</label>
+  <input type="text" id="genre" name="genre" value="{{ book.genre if book else '' }}">
+
+  <label><input type="checkbox" name="available" value="1"
+    {% if not book or book.available %}checked{% endif %}> Є в наявності</label>
+
+  <p>
+    <button class="btn btn-primary" type="submit">Зберегти</button>
+    <a class="btn" href="/">Скасувати</a>
+  </p>
+</form>
+{% endblock %}

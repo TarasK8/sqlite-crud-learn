@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<p><a class="btn btn-primary" href="/add">Додати книгу</a></p>
+{% if books %}
+<table>
+  <tr><th>ID</th><th>Назва</th><th>Автор</th><th>Рік</th><th>Жанр</th><th>Наявність</th><th>Дії</th></tr>
+  {% for book in books %}
+  <tr>
+    <td>{{ book.id }}</td>
+    <td>{{ book.title }}</td>
+    <td>{{ book.author }}</td>
+    <td>{{ book.year }}</td>
+    <td>{{ book.genre }}</td>
+    <td>{% if book.available %}є{% else %}видана{% endif %}</td>
+    <td>
+      <a class="btn" href="/edit/{{ book.id }}">Редагувати</a>
+      <form class="inline" method="post" action="/delete/{{ book.id }}"
+            onsubmit="return confirm('Видалити книгу?')">
+        <button class="btn btn-danger" type="submit">Видалити</button>
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p>Записів ще немає.</p>
+{% endif %}
+{% endblock %}
